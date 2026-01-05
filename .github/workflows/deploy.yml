@@ -1,28 +1,25 @@
 name: "Deploy CI"
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_run:
+    workflows: [ "Build CI" ]
+    types:
+      - completed
 jobs:
   deploy:
     name: "Deploy Angular App to Netlify"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
+          node-version: '24.x'
       - name: Install dependencies
-        run: npm ci
-      - name: Build Angular App
-        run: npm run build --prod
+        run: npm install --legacy-peer-deps
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --prod --dir=dist/ang-github-actions/browser
+        run: npx netlify deploy --prod --dir=dist/ang-github-actions/browser
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
