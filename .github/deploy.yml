@@ -1,9 +1,8 @@
-name: "Angular Deploy on Netlify"
+name: "Deploy CI"
 
 on :
   push:
-    branches:
-      - main 
+    branches: [ "main"]
 jobs:
    deploy:
     name: "Deploy Angular App to Netlify"
