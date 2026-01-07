@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HighlightText } from './highlight-text';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,HighlightText],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
