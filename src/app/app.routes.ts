@@ -11,7 +11,7 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: Home,
+        loadComponent:() => import('./practice-routing/home/home').then(m => m.Home),
         title: 'Home',
     },
     {
