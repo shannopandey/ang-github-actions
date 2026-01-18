@@ -7,6 +7,7 @@ on:
       - completed
 jobs:
   deploy:
+    if: false # github.event.workflow_run.conclusion == 'success' 
     name: "Deploy Angular App to Netlify"
     runs-on: ubuntu-latest
     steps:
