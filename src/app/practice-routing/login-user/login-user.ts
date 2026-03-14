@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject,OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-user',
@@ -13,6 +14,7 @@ export class LoginUser implements OnInit {
   username: string = '';
   password: string = '';
   private router = inject(Router);
+  private authService = inject(AuthService);
   ngOnInit():void { 
     this.username=localStorage.getItem('loggedInUser') || '';
     this.password=localStorage.getItem('loggedInPassword') || '';
@@ -22,10 +24,17 @@ export class LoginUser implements OnInit {
   }
   onLogin(form: any) {
     if (form.valid) {
-      console.log('Logging in with', this.username, this.password);
-      localStorage.setItem('loggedInUser', this.username);
-      localStorage.setItem('loggedInPassword', this.password);
-      this.router.navigate(['/home']);
+      this.authService.login({ email: this.username, password: this.password }).subscribe(
+        (response) => {
+          console.log('logged in succesfully');
+          localStorage.setItem('loggedInUser', this.username);
+          localStorage.setItem('loggedInPassword', this.password);
+          this.router.navigate(['/home']);
+        },
+        (error) => {
+          console.error('Login failed', error);
+        }
+      );
     }
   }
 }
