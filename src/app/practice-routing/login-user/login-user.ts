@@ -30,9 +30,6 @@ export class LoginUser implements OnInit {
           localStorage.setItem('loggedInUser', this.username);
           localStorage.setItem('loggedInPassword', this.password);
           this.router.navigate(['/home']);
-        },
-        (error) => {
-          console.error('Login failed', error);
         }
       );
     }
