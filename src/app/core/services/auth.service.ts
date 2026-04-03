@@ -15,6 +15,6 @@ export class AuthService {
     constructor(private http: HttpClient) {}
 
     login(credentials: AuthData): Observable<any> {
-        return this.http.post<any>('https://jsonplaceholder.typicode.com/posts/142524', credentials);
+        return this.http.post<any>('https://jsonplaceholder.typicode.com/posts/', credentials);
     }
 }

@@ -18,6 +18,7 @@ export interface User {
   styleUrl: './user-profile.scss',
 })
 export class UserProfile implements OnInit {
+  
   user: User | null = null;
   userId: number | null = null;
 
@@ -107,10 +108,17 @@ export class UserProfile implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.activatedRoute.params.subscribe(params =>{
+      
+      console.log('reached in constructor', this.activatedRoute);
+      
+    })
+  }
 
   ngOnInit(): void {
    this.activatedRoute.paramMap.subscribe(params=>{
+     console.log('reached in Ngonint');
     const userId= Number(params.get('id'));
     this.user = this.allUsers.find(u => u.id === userId) || null;
    })
