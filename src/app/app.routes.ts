@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './practice-routing/home/home';
 import { LoginUser } from './practice-routing/login-user/login-user';
 import path from 'path';
+import { authGuard } from './guard/auth-guard';
 
 
 export const routes: Routes = [
@@ -28,6 +29,7 @@ export const routes: Routes = [
     {
         path: 'profile/:id',
         loadComponent: () => import('./practice-routing/user-profile/user-profile').then(c=> c.UserProfile),
+        canActivate: [authGuard],
         title: 'Profile',
     }
 ];

@@ -17,4 +17,8 @@ export class AuthService {
     login(credentials: AuthData): Observable<any> {
         return this.http.post<any>('https://jsonplaceholder.typicode.com/posts/', credentials);
     }
+
+    isLoggedIn(): boolean {
+        return !!localStorage.getItem('loggedInUser');
+    }
 }
