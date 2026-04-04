@@ -36,4 +36,8 @@ export class AuthService {
         return !!localStorage.getItem('adminLoggedInUser');
     }
 
+    isUserLoggedIn(): boolean {    
+        return !!localStorage.getItem('loggedInUser');
+    }
+
 }

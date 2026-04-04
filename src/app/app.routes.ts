@@ -3,6 +3,8 @@ import { Home } from './practice-routing/home/home';
 import { LoginUser } from './practice-routing/login-user/login-user';
 import path from 'path';
 import { authGuard } from './guard/auth-guard';
+import { adminguardGuard } from './core/Interceptor/auth/adminguard-guard';
+import { userguardGuard } from './core/Interceptor/auth/userguard-guard';
 
 
 export const routes: Routes = [
@@ -14,7 +16,14 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./practice-routing/home/home').then(m => m.Home),
-        title: 'Home'
+        title: 'Home',
+        canMatch : [adminguardGuard]
+    },
+    {
+        path: 'home',
+        loadComponent: () => import('./practice-routing/home/home').then(m => m.Home),
+        title: 'Home',
+        canMatch : [userguardGuard]
     },
     {
         path: 'about',
