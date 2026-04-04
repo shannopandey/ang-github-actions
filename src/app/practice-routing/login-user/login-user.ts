@@ -13,6 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginUser implements OnInit {
   username: string = '';
   password: string = '';
+  source: string = '';
   private router = inject(Router);
   private authService = inject(AuthService);
   ngOnInit():void { 
@@ -23,8 +24,10 @@ export class LoginUser implements OnInit {
     }
   }
   onLogin(form: any) {
+    console.log('form data', this.source);
+    
     if (form.valid) {
-      this.authService.login({ email: this.username, password: this.password }).subscribe(
+      this.authService.login({ source: this.source }, { email: this.username, password: this.password }).subscribe(
         (response) => {
           console.log('logged in succesfully');
           localStorage.setItem('loggedInUser', this.username);

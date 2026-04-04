@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 export interface AuthData {
     email: string;
     password: string;
+}
+
+export interface callsource {
+    source: string;
 }
 
 @Injectable({
@@ -14,11 +18,22 @@ export class AuthService {
          
     constructor(private http: HttpClient) {}
 
-    login(credentials: AuthData): Observable<any> {
-        return this.http.post<any>('https://jsonplaceholder.typicode.com/posts/', credentials);
+    login(source: callsource, credentials: AuthData): Observable<any> {
+        if (source.source === 'admin') {
+            localStorage.setItem('adminLoggedInUser', JSON.stringify(credentials));
+            return of({ success: true });
+        } else {
+            localStorage.setItem('loggedInUser', JSON.stringify(credentials));
+            return of({ success: true });
+        }
     }
 
     isLoggedIn(): boolean {
         return !!localStorage.getItem('loggedInUser');
     }
+
+    isAdminLoggedIn(): boolean {
+        return !!localStorage.getItem('adminLoggedInUser');
+    }
+
 }

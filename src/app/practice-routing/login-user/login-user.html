@@ -14,6 +14,7 @@
         <div *ngIf="passwordModel.errors?.['minlength']">Password must be at least 8 characters long.</div>
       </div>
     </div>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button type="submit" [disabled]="loginForm.invalid" (click)="source = 'user'">Login as User</button>
+    <button type="submit" [disabled]="loginForm.invalid" (click)="source = 'admin'">Login as Admin</button>
   </form>
 </div>
